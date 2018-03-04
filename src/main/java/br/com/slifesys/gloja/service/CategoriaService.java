@@ -30,5 +30,36 @@ public class CategoriaService {
     public Page<Categoria> findAll(Pageable pageable) {
         return categoriaRepository.findAll(pageable);
     }
+    
+    /**
+     *  Get one categoria by id.
+     *
+     *  @param id the id of the entity
+     *  @return the entity
+     */
+    @Transactional(readOnly = true)
+    public Categoria findOne(Long id) {
+        //log.debug("Request to get Categoria : {}", id);
+        return categoriaRepository.findOne(id);
+    }
+    
+    /**
+     * Save the categoria
+     * 
+     * @param categoria the entity to save
+     * @return the persisted entity
+     */
+    public Categoria save(Categoria categoria) {
+    	return categoriaRepository.save(categoria);
+    }
 
+    /**
+     *  Delete the  categoria by id.
+     *
+     *  @param id the id of the entity
+     */
+    public void delete(Long id) {
+        //log.debug("Request to delete Categoria : {}", id);
+        categoriaRepository.delete(id);
+    }	
 }
