@@ -53,5 +53,19 @@ public interface ResponseUtil {
         return maybeResponse.map(response -> ResponseEntity.ok().headers(header).body(response))
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-
+    
+    /**
+     * Wrap the optional into a {@link ResponseEntity} with an {@link HttpStatus#OK} status with the headers, or if it's
+     * empty, it returns a {@link ResponseEntity} with {@link status}.
+     *
+     * @param <X>           type of the response
+     * @param maybeResponse response to return if present
+     * @param header        headers to be added to the response
+     * @parm  status        the selected response status (HttpStatus.NOT_FOUND, HttpStatus.BAD_REQUEST, HttpStatus.FORBIDDEN, ...)
+     * @return response containing {@code maybeResponse} if present or {@link status}
+     */
+    public static <X> ResponseEntity<X> wrapOrStatus(Optional<X> maybeResponse, HttpHeaders header, HttpStatus status) {
+        return maybeResponse.map(response -> ResponseEntity.ok().headers(header).body(response))
+            .orElse(new ResponseEntity<>(status));
+    }
 }
